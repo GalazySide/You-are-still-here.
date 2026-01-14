@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <title>You're Still Here.</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="icon" type="image/png" href="https://waryhub.com/files/preview/960x960/11750835141jhytyrqdqlvc3kdwgzcxdfkvkmwsrnirdfosxilwsxf7im1vhuziiqgw9kc9us7ts7od51h2rr7fs5hwwpmypmre2ewzrpzjregi.png"> <!-- Direct Imgur link to the CatNap image -->
+<link rel="icon" type="image/png" href="https://waryhub.com/files/preview/960x960/11750835141jhytyrqdqlvc3kdwgzcxdfkvkmwsrnirdfosxilwsxf7im1vhuziiqgw9kc9us7ts7od51h2rr7fs5hwwpmypmre2ewzrpzjregi.png">
 <style>
   *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
   html, body {
@@ -13,115 +13,61 @@
     color:#e0e0e0;
     font-family: 'Courier New', Courier, monospace;
     overflow:hidden;
-    cursor:none;
     image-rendering:pixelated;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16"><g stroke="%23fff" stroke-width="1.5"><line x1="8" y1="1" x2="8" y2="15"/><line x1="1" y1="8" x2="15" y2="8"/></g></svg>') 8 8, crosshair;
   }
 
-  #vignette {
-    position:fixed; inset:0;
-    pointer-events:none;
-    background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(0,0,0,0.85) 70%);
-    z-index:9;
-  }
+  #vignette { position:fixed; inset:0; pointer-events:none; background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(0,0,0,0.85) 70%); z-index:9; }
 
   #noise {
-    position:fixed; inset:0;
-    pointer-events:none;
+    position:fixed; inset:0; pointer-events:none;
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="5" /><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.12 0"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.11"/></svg>');
-    animation: noiseMove 0.4s steps(2) infinite;
-    mix-blend-mode:screen;
-    z-index:10;
+    animation: noiseMove 0.4s steps(2) infinite; mix-blend-mode:screen; z-index:10;
   }
   @keyframes noiseMove { 0%{transform:translate(0,0)} 100%{transform:translate(-8%,-12%)} }
 
-  #container {
-    position:absolute; inset:0;
-    display:flex; align-items:center; justify-content:center;
-    z-index:10;
-    pointer-events: none;
-  }
+  #container { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; z-index:10; pointer-events:none; }
   #text {
     font-size: clamp(20px, 3.5vw, 32px);
-    letter-spacing:2px;
-    text-shadow:0 0 10px #fff3;
-    pointer-events:none;
-    transition: transform 0.08s linear, filter 0.4s;
-    text-align:center;
-    line-height:1.4;
+    letter-spacing:2px; text-shadow:0 0 10px #fff3;
+    pointer-events:none; transition: transform 0.08s linear, filter 0.4s;
+    text-align:center; line-height:1.4;
   }
-  #text.glitch {
-    animation: glitch 0.6s infinite;
-    filter: brightness(1.3) contrast(1.4);
-  }
+  #text.glitch { animation: glitch 0.6s infinite; filter: brightness(1.3) contrast(1.4); }
   @keyframes glitch {
-    0%,100%{transform:translate(0)}
-    20%{transform:translate(-3px,2px)}
-    40%{transform:translate(3px,-2px)}
-    60%{transform:translate(-2px,1px)}
-    80%{transform:translate(2px,-1px)}
+    0%,100%{transform:translate(0)} 20%{transform:translate(-3px,2px)} 40%{transform:translate(3px,-2px)}
+    60%{transform:translate(-2px,1px)} 80%{transform:translate(2px,-1px)}
   }
 
   #ghost {
-    position:absolute; top:50%; left:50%;
-    transform:translate(-50%,-50%);
-    font-size: clamp(22px, 4vw, 36px);
-    color:#fff; text-shadow:0 0 20px #fff8;
-    opacity:0; pointer-events:none;
-    z-index:12;
-    white-space:pre;
-    text-align:center;
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    font-size: clamp(22px, 4vw, 36px); color:#fff; text-shadow:0 0 20px #fff8;
+    opacity:0; pointer-events:none; z-index:12; white-space:pre; text-align:center;
   }
 
-  #maze {
-    position:absolute; inset:0;
-    display:none;
-    z-index:6;
-    cursor:crosshair;
-  }
-  .wall {
-    position:absolute;
-    background:#0a0a0a;
-    box-shadow: inset 0 0 8px #000, 0 0 6px #111;
-    transition: box-shadow 0.4s;
-  }
-  .wall.danger {
-    box-shadow: 0 0 24px #f004, inset 0 0 24px #a00;
-  }
+  #maze { position:absolute; inset:0; display:none; z-index:6; cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16"><g stroke="%23fff" stroke-width="1.5"><line x1="8" y1="1" x2="8" y2="15"/><line x1="1" y1="8" x2="15" y2="8"/></g></svg>') 8 8, crosshair; }
 
   #startPoint, #endPoint {
-    position:absolute;
-    width:12px; height:12px;
-    border-radius:50%;
-    background:#fff;
-    box-shadow:0 0 16px #fff, 0 0 32px #fffa;
-    display:none;
-    z-index:8;
+    position:absolute; width:14px; height:14px; border-radius:50%;
+    background:#fff; box-shadow:0 0 20px #fff, 0 0 40px #fffa;
+    display:none; z-index:8;
   }
-
-  #endPoint.pulse {
-    animation: pulse 2s infinite;
-  }
+  #endPoint.pulse { animation: pulse 1.6s infinite; }
   @keyframes pulse {
-    0% { box-shadow: 0 0 16px #fff, 0 0 32px #fffa; }
-    50% { box-shadow: 0 0 28px #fff, 0 0 56px #fff; }
-    100% { box-shadow: 0 0 16px #fff, 0 0 32px #fffa; }
+    0% { box-shadow: 0 0 20px #fff, 0 0 40px #fffa; }
+    50% { box-shadow: 0 0 36px #fff, 0 0 80px #fff8; }
+    100% { box-shadow: 0 0 20px #fff, 0 0 40px #fffa; }
   }
 
-  #customCursor {
-    position:fixed;
-    width:12px; height:12px;
-    pointer-events:none;
-    z-index:9999;
+  #skipBtn {
+    position: fixed; bottom: 30px; right: 40px;
+    padding: 12px 24px; background: #111; color: #e33; border: 1px solid #600;
+    font-family: inherit; font-size: 15px; cursor: pointer; z-index: 20;
+    opacity: 0; transition: opacity 0.6s, transform 0.2s;
+    pointer-events: none; user-select: none; border-radius: 4px;
   }
-  #customCursor::before,
-  #customCursor::after {
-    content:'';
-    position:absolute;
-    background:#fff;
-    box-shadow:0 0 10px #fff;
-  }
-  #customCursor::before {width:12px;height:2px;top:50%;left:0;transform:translateY(-50%);}
-  #customCursor::after  {width:2px;height:12px;left:50%;top:0;transform:translateX(-50%);}
+  #skipBtn.visible { opacity: 0.8; pointer-events: auto; }
+  #skipBtn:hover { opacity: 1; transform: scale(1.08); background: #1a0000; }
 </style>
 </head>
 <body>
@@ -129,28 +75,22 @@
 <div id="noise"></div>
 <div id="container"><div id="text">This page is empty.</div></div>
 <div id="ghost">Help me</div>
-<div id="maze"></div>
+<canvas id="maze"></canvas>
 <div id="startPoint"></div>
 <div id="endPoint"></div>
-<div id="customCursor"></div>
+<button id="skipBtn">skip waiting → start maze</button>
 
 <script>
-// (The full script from the previous version remains exactly the same – no changes needed there)
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-let droneOsc = null;
-let droneGain = null;
-let heartbeatInterval = null;
+let droneOsc = null, droneGain = null, heartbeatInterval = null;
 
 function startAmbient() {
   if (droneOsc) return;
   droneOsc = audioCtx.createOscillator();
-  droneOsc.type = 'sawtooth';
-  droneOsc.frequency.value = 45;
+  droneOsc.type = 'sawtooth'; droneOsc.frequency.value = 45;
   const filter = audioCtx.createBiquadFilter();
-  filter.type = 'lowpass';
-  filter.frequency.value = 180;
-  droneGain = audioCtx.createGain();
-  droneGain.gain.value = 0.04;
+  filter.type = 'lowpass'; filter.frequency.value = 180;
+  droneGain = audioCtx.createGain(); droneGain.gain.value = 0.04;
   droneOsc.connect(filter).connect(droneGain).connect(audioCtx.destination);
   droneOsc.start();
 }
@@ -176,8 +116,7 @@ function playWarning() {
   gain.gain.setValueAtTime(0.18, audioCtx.currentTime);
   gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
   osc.connect(gain).connect(audioCtx.destination);
-  osc.start();
-  osc.stop(audioCtx.currentTime + 0.15);
+  osc.start(); osc.stop(audioCtx.currentTime + 0.15);
 }
 
 function playHeartbeat() {
@@ -189,8 +128,7 @@ function playHeartbeat() {
   gain1.gain.setValueAtTime(0.5, audioCtx.currentTime);
   gain1.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
   osc1.connect(gain1).connect(audioCtx.destination);
-  osc1.start();
-  osc1.stop(audioCtx.currentTime + 0.4);
+  osc1.start(); osc1.stop(audioCtx.currentTime + 0.4);
 
   setTimeout(() => {
     const osc2 = audioCtx.createOscillator();
@@ -201,8 +139,7 @@ function playHeartbeat() {
     gain2.gain.setValueAtTime(0.35, audioCtx.currentTime);
     gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
     osc2.connect(gain2).connect(audioCtx.destination);
-    osc2.start();
-    osc2.stop(audioCtx.currentTime + 0.4);
+    osc2.start(); osc2.stop(audioCtx.currentTime + 0.4);
   }, 160);
 }
 
@@ -231,25 +168,31 @@ function playJumpscare() {
   screechGain.gain.setValueAtTime(0.5, audioCtx.currentTime);
   screechGain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
   screech.connect(screechGain).connect(audioCtx.destination);
-  screech.start();
-  screech.stop(audioCtx.currentTime + duration);
+  screech.start(); screech.stop(audioCtx.currentTime + duration);
 }
 
-// ──────────────────────────────────────────────────────────────
 const textEl     = document.getElementById('text');
 const ghostEl    = document.getElementById('ghost');
 const mazeEl     = document.getElementById('maze');
-const cursorEl   = document.getElementById('customCursor');
 const startPt    = document.getElementById('startPoint');
 const endPt      = document.getElementById('endPoint');
+const skipBtn    = document.getElementById('skipBtn');
 
 let mouse = {x: window.innerWidth / 2, y: window.innerHeight / 2};
+let lastMouse = {x: window.innerWidth / 2, y: window.innerHeight / 2};
 let lastMove = Date.now();
 let showingPanic = false;
 let gameEnded = false;
 let mazeActive = false;
 let hasWon = false;
 let tabbedOutDuringMaze = false;
+let needsRedraw = false;
+let animLoop = null;
+let walls = [];
+let baseOffscreen = null;
+let collisionOffscreen = null;
+let mazeCtx = null;
+let lastWarn = 0;
 
 const preMazeMessages = [
   "You're still here.",
@@ -278,44 +221,60 @@ let currentMessages = [...preMazeMessages];
 let messageIndex = 0;
 const gameStart = Date.now();
 
-// Prevent right-click / middle-click cheat
-document.addEventListener('contextmenu', e => {
-  e.preventDefault();
-  if (mazeActive) {
-    fail("You can't find another way.");
-  }
-});
-document.addEventListener('auxclick', e => {
-  e.preventDefault();
-  if (mazeActive) {
-    fail("You need to help me yourself.");
-  }
-});
-
-// Anti-tab cheat
-window.addEventListener('blur', () => {
-  if (mazeActive) tabbedOutDuringMaze = true;
-});
+document.addEventListener('contextmenu', e => { e.preventDefault(); if (mazeActive) fail("You can't find another way."); });
+document.addEventListener('auxclick', e => { e.preventDefault(); if (mazeActive) fail("You need to help me yourself."); });
+window.addEventListener('blur', () => { if (mazeActive) tabbedOutDuringMaze = true; });
 document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'hidden' && mazeActive) {
-    tabbedOutDuringMaze = true;
-  } else if (document.visibilityState === 'visible' && mazeActive && tabbedOutDuringMaze) {
-    fail("Stop looking for another way.");
+  if (document.visibilityState === 'hidden' && mazeActive) tabbedOutDuringMaze = true;
+  else if (document.visibilityState === 'visible' && mazeActive && tabbedOutDuringMaze) fail("Stop looking for another way.");
+});
+
+// ── Secret cheat: type LOVE anywhere to skip to ending ──
+let typed = '';
+document.addEventListener('keydown', (e) => {
+  if (e.ctrlKey || e.altKey || e.metaKey || e.key.length !== 1) return;
+  typed += e.key.toUpperCase();
+  if (typed.length > 5) typed = typed.slice(-5);
+  if (typed === 'LOVE') {
+    e.preventDefault();
+    typed = '';
+    if (!hasWon) {
+      if (heartbeatInterval) clearInterval(heartbeatInterval);
+      if (animLoop) cancelAnimationFrame(animLoop);
+      mazeActive = false;
+      gameEnded = true;
+      hasWon = true;
+      trueEnding();
+    }
   }
 });
 
-// Mouse tracking
 document.addEventListener('mousemove', e => {
   mouse.x = e.clientX;
   mouse.y = e.clientY;
+
+  if (mazeActive && !hasWon) {
+    const dist = Math.hypot(mouse.x - lastMouse.x, mouse.y - lastMouse.y);
+    if (dist > 35) {
+      fail("You moved too fast!");
+      return;
+    }
+    const points = getLinePoints(lastMouse.x, lastMouse.y, mouse.x, mouse.y);
+    for (let p of points) {
+      if (p.x < 0 || p.x >= window.innerWidth || p.y < 0 || p.y >= window.innerHeight) continue;
+      const pixel = collisionOffscreen.getContext('2d').getImageData(p.x, p.y, 1, 1).data;
+      if (pixel[0] === 0 && pixel[1] === 0 && pixel[2] === 0 && pixel[3] === 255) {
+        fail();
+        return;
+      }
+    }
+  }
+
+  lastMouse.x = mouse.x;
+  lastMouse.y = mouse.y;
   lastMove = Date.now();
 
-  cursorEl.style.left = (mouse.x - 6) + 'px';
-  cursorEl.style.top  = (mouse.y - 6) + 'px';
-
-  if (audioCtx.state === 'suspended') {
-    audioCtx.resume();
-  }
+  if (audioCtx.state === 'suspended') audioCtx.resume();
 
   if (showingPanic) {
     showingPanic = false;
@@ -327,20 +286,46 @@ document.addEventListener('mousemove', e => {
     const r = startPt.getBoundingClientRect();
     const cx = r.left + r.width/2;
     const cy = r.top + r.height/2;
-    if (Math.hypot(mouse.x - cx, mouse.y - cy) < 16) {
+    if (Math.hypot(mouse.x - cx, mouse.y - cy) < 20) {
       startPt.style.display = 'none';
       startMazeChallenge();
     }
   }
+
+  if (mazeActive && !hasWon) {
+    const er = endPt.getBoundingClientRect();
+    const ex = er.left + er.width/2;
+    const ey = er.top + er.height/2;
+    if (Math.hypot(mouse.x - ex, mouse.y - ey) < 22) {
+      hasWon = true;
+      trueEnding();
+    }
+    needsRedraw = true;
+  }
 });
 
-// Time-based events
+function getLinePoints(x0, y0, x1, y1) {
+  const points = [];
+  x0 = Math.floor(x0); y0 = Math.floor(y0); x1 = Math.floor(x1); y1 = Math.floor(y1);
+  const dx = Math.abs(x1 - x0);
+  const dy = Math.abs(y1 - y0);
+  const sx = x0 < x1 ? 1 : -1;
+  const sy = y0 < y1 ? 1 : -1;
+  let err = dx - dy;
+  while (true) {
+    points.push({x: x0, y: y0});
+    if (x0 === x1 && y0 === y1) break;
+    const e2 = 2 * err;
+    if (e2 > -dy) { err -= dy; x0 += sx; }
+    if (e2 < dx) { err += dx; y0 += sy; }
+  }
+  return points;
+}
+
 setInterval(() => {
   const elapsed = (Date.now() - gameStart)/1000;
 
-  if (!droneOsc && audioCtx.state === 'running') {
-    startAmbient();
-  }
+  if (!droneOsc && audioCtx.state === 'running') startAmbient();
 
   if (messageIndex < currentMessages.length && elapsed > messageIndex * 7.5) {
     textEl.textContent = currentMessages[messageIndex++];
@@ -372,12 +357,58 @@ setInterval(() => {
   }
 }, 180);
 
+setTimeout(() => {
+  if (!mazeActive && !gameEnded) skipBtn.classList.add('visible');
+}, 4000);
+
+skipBtn.addEventListener('click', () => {
+  if (mazeActive || gameEnded) return;
+  skipBtn.style.display = 'none';
+  textEl.textContent = "…okay then.";
+  setTimeout(startMazeIntro, 800);
+});
+
 function startMazeIntro() {
   mazeActive = false;
-  textEl.textContent = "Place your cursor over the white dot.";
+  textEl.textContent = "Place your cursor over the white dot to begin.";
   startPt.style.display = 'block';
   startPt.style.left = '80px';
-  startPt.style.top = (window.innerHeight / 2 - 6) + 'px';
+  startPt.style.top = (window.innerHeight / 2 - 7) + 'px';
+}
+
+function drawMaze() {
+  mazeCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  mazeCtx.drawImage(baseOffscreen, 0, 0);
+
+  let warn = false;
+  const dangerSq = 38 * 38;
+  const warningSq = 26 * 26;
+  mazeCtx.shadowColor = '#f005';
+  mazeCtx.shadowBlur = 32;
+  mazeCtx.fillStyle = '#c00';
+  for (let wall of walls) {
+    const dx = Math.abs(mouse.x - wall.cx);
+    const dy = Math.abs(mouse.y - wall.cy);
+    if (dx > 38 || dy > 38) continue;
+    const distSq = dx * dx + dy * dy;
+    if (distSq < dangerSq) {
+      mazeCtx.fillRect(wall.x, wall.y, wall.w, wall.h);
+      if (distSq < warningSq) warn = true;
+    }
+  }
+
+  if (warn && Date.now() - lastWarn > 420) {
+    lastWarn = Date.now();
+    playWarning();
+    navigator.vibrate?.([30, 20, 30]);
+  }
+}
+
+function anim() {
+  animLoop = requestAnimationFrame(anim);
+  if (!mazeActive || hasWon || !needsRedraw) return;
+  needsRedraw = false;
+  drawMaze();
 }
 
 function startMazeChallenge() {
@@ -386,47 +417,65 @@ function startMazeChallenge() {
   tabbedOutDuringMaze = false;
   startHeartbeat();
 
-  currentMessages = [...mazePleadingMessages];
-  messageIndex = 0;
-  textEl.textContent = currentMessages[0];
-  messageIndex = 1;
+  // ── Changed: we no longer use a fixed index for messages ──
+  // Instead we'll pick a random pleading message every ~4–12 seconds
+  currentMessages = [...mazePleadingMessages];  // keep the array for reference
+
+  // Initial message
+  textEl.textContent = currentMessages[Math.floor(Math.random() * currentMessages.length)];
+
+  // Start cycling messages randomly while maze is active
+  const messageCycleInterval = setInterval(() => {
+    if (!mazeActive || hasWon) {
+      clearInterval(messageCycleInterval);
+      return;
+    }
+    const randomMsg = currentMessages[Math.floor(Math.random() * currentMessages.length)];
+    textEl.textContent = randomMsg;
+
+    // Optional: tiny glitch effect when message changes
+    textEl.classList.add('glitch');
+    setTimeout(() => textEl.classList.remove('glitch'), 800);
+  }, 4000 + Math.random() * 8000);   // changes every 4–12 seconds
 
   mazeEl.style.display = 'block';
-  mazeEl.innerHTML = '';
+  mazeEl.width = window.innerWidth;
+  mazeEl.height = window.innerHeight;
+  mazeCtx = mazeEl.getContext('2d');
+
   endPt.style.display = 'block';
   endPt.classList.add('pulse');
-  endPt.style.left = (window.innerWidth - 92) + 'px';
-  endPt.style.top = (window.innerHeight / 2 - 6) + 'px';
+  endPt.style.left = (window.innerWidth - 100) + 'px';
+  endPt.style.top  = (window.innerHeight / 2 - 7) + 'px';
+
+  // ── rest of the maze generation code remains unchanged ──
+  const cell = 10.5;
+  const wallThickness = 1;
+  const safeRadius = 22;
 
   const W = window.innerWidth;
   const H = window.innerHeight;
-  const cell = 24;
-  const wallThickness = 2;
-
-  const startX = 80 + 6;
-  const startY = H / 2;
-  const endX = W - 92 + 6;
-  const endY = H / 2;
-  const safeRadius = 30;
-
   const cols = Math.ceil(W / cell);
   const rows = Math.ceil(H / cell);
 
-  const grid = Array.from({length: rows}, () => Array(cols).fill(null).map(() => ({n:1, e:1, s:1, w:1, visited:false})));
+  const startX = 80 + 7;
+  const startY = H / 2;
+  const endX = W - 100 + 7;
+  const endY = H / 2;
 
-  const startRow = Math.floor(rows / 2);
-  let current = {r: startRow, c: 1};
+  const grid = Array.from({length: rows}, () => Array(cols).fill(null).map(() => ({n:1,e:1,s:1,w:1,visited:false})));
+
+  let current = {r: Math.floor(rows/2), c: 1};
   grid[current.r][current.c].visited = true;
   const stack = [current];
 
   while (stack.length) {
     const {r, c} = current;
     const neighbors = [];
-
-    if (r > 0 && !grid[r-1][c].visited) neighbors.push({r: r-1, c, dir:'n'});
-    if (r < rows-1 && !grid[r+1][c].visited) neighbors.push({r: r+1, c, dir:'s'});
-    if (c > 0 && !grid[r][c-1].visited) neighbors.push({r, c: c-1, dir:'w'});
-    if (c < cols-1 && !grid[r][c+1].visited) neighbors.push({r, c: c+1, dir:'e'});
+    if (r > 0 && !grid[r-1][c].visited) neighbors.push({r:r-1,c,dir:'n'});
+    if (r < rows-1 && !grid[r+1][c].visited) neighbors.push({r:r+1,c,dir:'s'});
+    if (c > 0 && !grid[r][c-1].visited) neighbors.push({r,c:c-1,dir:'w'});
+    if (c < cols-1 && !grid[r][c+1].visited) neighbors.push({r,c:c+1,dir:'e'});
 
     if (neighbors.length) {
       const next = neighbors[Math.floor(Math.random() * neighbors.length)];
@@ -434,7 +483,6 @@ function startMazeChallenge() {
       if (next.dir === 's') { grid[r][c].s = 0; grid[next.r][next.c].n = 0; }
       if (next.dir === 'w') { grid[r][c].w = 0; grid[next.r][next.c].e = 0; }
       if (next.dir === 'e') { grid[r][c].e = 0; grid[next.r][next.c].w = 0; }
-
       current = {r: next.r, c: next.c};
       grid[current.r][current.c].visited = true;
       stack.push(current);
@@ -443,123 +491,127 @@ function startMazeChallenge() {
     }
   }
 
-  if (cols > 2) {
-    grid[startRow][1].w = 0;
-    grid[startRow][cols-2].e = 0;
+  if (cols > 3) {
+    grid[Math.floor(rows/2)][1].w = 0;
+    grid[Math.floor(rows/2)][cols-2].e = 0;
   }
+
+  walls = [];
 
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
-      const cellItem = grid[r][c];
+      const item = grid[r][c];
       const x = c * cell;
       const y = r * cell;
-
-      if (cellItem.n || r === 0) createWall(x, r === 0 ? 0 : y, cell, wallThickness);
-      if (cellItem.w && c > 0) createWall(x, y, wallThickness, cell);
-      if (cellItem.s || r === rows - 1) createWall(x, y + cell - wallThickness, cell, wallThickness);
-      if (cellItem.e && c < cols - 1) createWall(x + cell - wallThickness, y, wallThickness, cell);
+      if (item.n || r===0)               createWall(x, r===0?0:y, cell, wallThickness);
+      if (item.w && c>0)                 createWall(x, y, wallThickness, cell);
+      if (item.s || r===rows-1)          createWall(x, y+cell-wallThickness, cell, wallThickness);
+      if (item.e && c<cols-1)            createWall(x+cell-wallThickness, y, wallThickness, cell);
     }
   }
 
   for (let c = 0; c < cols; c++) {
-    createWall(c * cell, 0, cell, wallThickness);
-    createWall(c * cell, H - wallThickness, cell, wallThickness);
+    createWall(c*cell, 0, cell, wallThickness);
+    createWall(c*cell, H-wallThickness, cell, wallThickness);
   }
 
   function createWall(x, y, w, h) {
-    const wallCenterX = x + w / 2;
-    const wallCenterY = y + h / 2;
-
-    if (Math.hypot(startX - wallCenterX, startY - wallCenterY) < safeRadius ||
-        Math.hypot(endX - wallCenterX, endY - wallCenterY) < safeRadius) {
-      return;
-    }
-
-    const wall = document.createElement('div');
-    wall.className = 'wall';
-    wall.style.left   = x + 'px';
-    wall.style.top    = y + 'px';
-    wall.style.width  = w + 'px';
-    wall.style.height = h + 'px';
-    mazeEl.appendChild(wall);
+    const cx = x + w / 2;
+    const cy = y + h / 2;
+    if (Math.hypot(cx - startX, cy - startY) < safeRadius || Math.hypot(cx - endX, cy - endY) < safeRadius) return;
+    walls.push({x, y, w, h, cx, cy});
   }
 
-  let lastWarn = 0;
-  mazeEl.addEventListener('mousemove', e => {
-    if (hasWon) return;
+  baseOffscreen = document.createElement('canvas');
+  baseOffscreen.width = W;
+  baseOffscreen.height = H;
+  const baseCtx = baseOffscreen.getContext('2d');
+  baseCtx.fillStyle = '#0a0a0a';
+  baseCtx.shadowColor = '#000';
+  baseCtx.shadowBlur = 8;
+  for (let wall of walls) {
+    baseCtx.fillRect(wall.x, wall.y, wall.w, wall.h);
+  }
 
-    const now = Date.now();
+  collisionOffscreen = document.createElement('canvas');
+  collisionOffscreen.width = W;
+  collisionOffscreen.height = H;
+  const collisionCtx = collisionOffscreen.getContext('2d');
+  collisionCtx.fillStyle = 'black';
+  for (let wall of walls) {
+    collisionCtx.fillRect(wall.x, wall.y, wall.w, wall.h);
+  }
 
-    let touchedWall = false;
-    document.elementsFromPoint(e.clientX, e.clientY).forEach(el => {
-      if (el.classList.contains('wall')) touchedWall = true;
-    });
-    if (touchedWall) {
-      fail();
-      return;
-    }
-
-    const er = endPt.getBoundingClientRect();
-    const ex = er.left + er.width / 2;
-    const ey = er.top + er.height / 2;
-    if (Math.hypot(e.clientX - ex, e.clientY - ey) < 16) {
-      hasWon = true;
-      trueEnding();
-      return;
-    }
-
-    document.querySelectorAll('.wall').forEach(w => {
-      const rect = w.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
-      const dist = Math.hypot(e.clientX - cx, e.clientY - cy);
-      w.classList.toggle('danger', dist < 45);
-      if (dist < 30 && now - lastWarn > 500) {
-        lastWarn = now;
-        playWarning();
-        navigator.vibrate?.([40]);
-      }
-    });
-  });
+  needsRedraw = true;
+  anim();
 }
 
 function fail(msg = "you left me..\nat least you tried...") {
+  mazeActive = false;
   if (heartbeatInterval) clearInterval(heartbeatInterval);
   ghostEl.textContent = msg;
   ghostEl.style.opacity = 1;
   ghostEl.style.fontSize = '50px';
   textEl.textContent = "";
   playJumpscare();
-  setTimeout(() => location.reload(), 2000);
+  setTimeout(() => location.reload(), 2200);
 }
 
 function trueEnding() {
+  mazeActive = false;
+  hasWon = true;
   if (heartbeatInterval) clearInterval(heartbeatInterval);
+  if (animLoop) cancelAnimationFrame(animLoop);
+
   mazeEl.style.display = 'none';
   startPt.style.display = 'none';
   endPt.style.display = 'none';
+  ghostEl.style.display = 'none';
+  document.getElementById('vignette')?.remove();
+  document.getElementById('noise')?.remove();
+  document.getElementById('container')?.remove();
+  skipBtn.remove();
 
-  textEl.textContent = "";
-  ghostEl.textContent = "i wuv you so so much <3";
-  ghostEl.style.opacity = 1;
-  ghostEl.style.fontSize = '80px';
-  ghostEl.style.color = '#fff';
-  ghostEl.style.textShadow = '0 0 40px #fff';
+  document.body.style.cssText = `
+    background: #000 !important;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Courier New', Courier, monospace;
+  `;
 
-  document.body.style.transition = 'background 10s ease-in-out';
-  document.body.style.background = '#111';
+  const finalMsg = document.createElement('div');
+  finalMsg.style.cssText = `
+    color: #e0e0e0;
+    font-size: clamp(28px, 5.8vw, 54px);
+    text-align: center;
+    line-height: 1.45;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 16px rgba(255,255,255,0.15);
+    max-width: 92vw;
+    padding: 5vh 4vw;
+    user-select: none;
+    pointer-events: none;
+  `;
 
+  finalMsg.innerHTML = "O rubk eua, o coyn ck ckxk suxk zngt payz lxoktjy.<br>o igt'z robk coznuaz eua ot se rolk.<br><br>PS: Suck Suck my Penis";
+
+  document.body.appendChild(finalMsg);
+
+  finalMsg.style.opacity = '0';
+  finalMsg.style.transition = 'opacity 9s ease-in';
   setTimeout(() => {
-    ghostEl.style.transition = 'opacity 8s ease-out';
-    ghostEl.style.opacity = 0.7;
-    document.body.style.background = '#000';
-  }, 4000);
+    finalMsg.style.opacity = '1';
+  }, 400);
 }
 
-// Text follow effect
 function updateTextFollow() {
-  const dx = (mouse.x - window.innerWidth / 2) * 0.018;
-  const dy = (mouse.y - window.innerHeight / 2) * 0.018;
+  const dx = (mouse.x - window.innerWidth/2) * 0.018;
+  const dy = (mouse.y - window.innerHeight/2) * 0.018;
   textEl.style.transform = `translate(${dx}px, ${dy}px)`;
   requestAnimationFrame(updateTextFollow);
 }
