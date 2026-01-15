@@ -262,11 +262,11 @@ document.addEventListener('mousemove', e => {
     const points = getLinePoints(lastMouse.x, lastMouse.y, mouse.x, mouse.y);
     for (let p of points) {
       if (p.x < 0 || p.x >= window.innerWidth || p.y < 0 || p.y >= window.innerHeight) continue;
-      const pixel = collisionOffscreen.getContext('2d').getImageData(p.x, p.y, 1, 1).data;
-      if (pixel[0] === 0 && pixel[1] === 0 && pixel[2] === 0 && pixel[3] === 255) {
-        fail();
-        return;
-      }
+const pixel = collisionOffscreen.getContext('2d').getImageData(p.x, p.y, 1, 1).data;
+if (pixel[3] > 200 && pixel[0] < 30 && pixel[1] < 30 && pixel[2] < 30) {
+    fail("you touched the wall...");
+    return;
+}
     }
   }
 
@@ -377,33 +377,38 @@ function startMazeIntro() {
 }
 
 function drawMaze() {
-  mazeCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-  mazeCtx.drawImage(baseOffscreen, 0, 0);
+    mazeCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    
+    // Always draw the dark maze walls first
+    mazeCtx.drawImage(baseOffscreen, 0, 0);
 
-  let warn = false;
-  const dangerSq = 38 * 38;
-  const warningSq = 26 * 26;
-  mazeCtx.shadowColor = '#f005';
-  mazeCtx.shadowBlur = 32;
-  mazeCtx.fillStyle = '#c00';
-  for (let wall of walls) {
-    const dx = Math.abs(mouse.x - wall.cx);
-    const dy = Math.abs(mouse.y - wall.cy);
-    if (dx > 38 || dy > 38) continue;
-    const distSq = dx * dx + dy * dy;
-    if (distSq < dangerSq) {
-      mazeCtx.fillRect(wall.x, wall.y, wall.w, wall.h);
-      if (distSq < warningSq) warn = true;
+    // Optional: subtle red glow / danger visualization when close
+    let warn = false;
+    const dangerSq  = 38 * 38;
+    const warningSq = 26 * 26;
+
+    mazeCtx.shadowColor = '#f005';
+    mazeCtx.shadowBlur  = 32;
+    mazeCtx.fillStyle   = '#c005';   // very transparent dark red
+
+    for (let wall of walls) {
+        const dx = Math.abs(mouse.x - wall.cx);
+        const dy = Math.abs(mouse.y - wall.cy);
+        if (dx > 45 || dy > 45) continue;   // early out
+
+        const distSq = dx*dx + dy*dy;
+        if (distSq < dangerSq) {
+            mazeCtx.fillRect(wall.x, wall.y, wall.w, wall.h);
+            if (distSq < warningSq) warn = true;
+        }
     }
-  }
 
-  if (warn && Date.now() - lastWarn > 420) {
-    lastWarn = Date.now();
-    playWarning();
-    navigator.vibrate?.([30, 20, 30]);
-  }
+    if (warn && Date.now() - lastWarn > 420) {
+        lastWarn = Date.now();
+        playWarning();
+        navigator.vibrate?.([30, 20, 30]);
+    }
 }
-
 function anim() {
   animLoop = requestAnimationFrame(anim);
   if (!mazeActive || hasWon || !needsRedraw) return;
@@ -619,4 +624,3 @@ updateTextFollow();
 </script>
 </body>
 </html>
-
